@@ -1,0 +1,125 @@
+select name, cities from clients;
+select * from product;
+select name from clients where name like '_n%';
+select * from clients where city='Pune';
+select * from products where sellingPrice >2000 and sellingPrice <=5000;
+alter table product_master add column new_price int;
+alter table Sales_Order_Details rename column product_rate to new_product_rate;
+select description from product order by description;
+select ID, salesDate from orders;
+delete * from salesman where deliverDate < '2008-08-25';
+update orders set orderNumber ='16-08-08' where orderNumber ='on01008';
+update orders set bal_due =1200 where client_no ='cn01003';
+select * from product where description='HDD1034' or description='DVDRW';
+select name,city,state from clients where state !='Maharashtra';
+select * from orders where orderDate =____-03-__';
+
+select name, city, course from student where department='cse';
+select count(*) from teacher where department='cse';
+select courseNum from course where department='cse';
+select * from student where semester='freshman';
+select id from student where (avg((select grade from course where studentid= student.id)) > 8.5;
+select count(*) from courses where studentid = '1' and completedCourses.semester ='freshman';
+select Distinct * from student s1 cross join student s2 on (s1.course=s2.course) where programe ='mca' and programe ='M.tech';
+select count(*) from courses where subject ='dbms';
+select semester from student where subject ='dbms';
+select name from student order by name;
+update student set address='pune' where sdt_id='CSI08002' and address='Chennai' ;
+select credit from course like '%MCA%';
+select * from course where offeringdepartment="computer science";
+select * from students where address='Pune';
+select distinct count(department) from courses;
+
+select ac.aname from aircraft ac where ac.aid in 
+(select c.aid from certified c, employee emp where c.eid=emp.eid) and exists 
+(select * from employess emp2 where emp.eid=emp2.eid and emp.salary > 80000));
+
+select c.eid,max(a.crusingrange) from certified c, aircraft a where c.aid = a.aid
+group by c.eid having count(*)>3;
+
+select e.name from employees e, where e.salary <(select min(f.price) from flights f where
+f.from = 'los angeles' and  f.to ='honolulu');
+
+select a.aname,avg(e.salary) from aircraft a, certified c, employess e
+where a.aid=c.aid and c.eid=e.eid and a.cruisingragne>1000 group by a.aid,a.aname;
+
+select e.name from employees e, aircraft a, certified c
+where e.eid=c.eid and c.aid=a.aid and a.aname='Boeing';
+
+select a.aid from aircraft a where a.cruisingrange>(select min(f.distance) from flight f
+where f.from='los Angeles' and f.to ='chicago');
+
+select f.to,f.from from flights f where exists(select * from employees e where e.salary
+>100,000 and not exists (select * from aircraft a, certified c where
+a.crusingrange > f.distance and e.eid=c.eid and a.aid=c.aid);
+
+select e.enames from empolyees e where eid in (
+(select C.eid from certified c where exists (
+select a.aid from aircraft a where a.aid = c.aid and A.crusingrange >3000) and not exists (select
+a1.aid from aircraft a1 where a1.aname like 'Boeing%' and a1.aid=c.aid));
+
+select f.departs from flights f where f.dlno in ((
+select f0.flno from flight f0 where f0.from= 'madison' and f0.to ='new york' and f0.arrives < '18:00')
+union(select f0.flno from flights f1 where f0.from ='Madison' and f0.to != 'new york'
+and f1.departs > f0.arrives and f1.arrives < '18:00')
+union (select f0.flno from flights f0, flights f1, flights f2 where f0.from ='madison'
+and f0.to = f1.from
+and f1.to = f2.from
+and f2.to= 'New york'
+and f0.to != 'new york'
+and f1.to != 'new york'
+and f1.departs > f0.arrives
+and f2.departs > f1.arrives
+and f2.arrives < '18:00'));
+
+select av1.avg -av2.avg from (selece avg(e.salary) as avg from employees e
+where e.eid in (select distinct c.eid from certified c)) as av1
+select avg (e.salary) as avg from employee e) as av2;
+
+select e.ename, e.salary from employees e where e.eid not in (select c.eid from certified c)
+and e.salary>(select avg(e1.salary) from employees e1 where e1 where e1.eid in (select c1.eid from certified c1));
+
+select e.ename from employess e, certified c, aircraft a
+where c.aid=a.aid and e.eid=c.eid group by e.eid e.ename having every (a.cruisingrange >1000);
+
+select e.ename from employess e, certified c, aircraft a
+where c.aid=a.aid and e.eid=c.eid group by e.eid e.ename having every (a.cruisingrange >1000) and count(*)>1;
+
+select e.ename from employess e, certified c, aircraft a
+where c.aid=a.aid and e.eid=c.eid group by e.eid e.ename having every (a.cruisingrange >1000) and any (a.name = ' boeing');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
